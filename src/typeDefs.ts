@@ -26,7 +26,10 @@ export const typeDefs = `#graphql
   # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
     reviews: [Review]
+    review(id: ID!): Review
     games: [Game]
+    game(id: ID!): Game
     authors: [Author]
+    author(id: ID!): Author
   }
 `;
