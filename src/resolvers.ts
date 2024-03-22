@@ -5,10 +5,20 @@ import { authors, games, reviews } from "./_db.js";
 export const resolvers = {
   Query: {
     games: () => games,
-    game: (parent, args, context) => games.find((game) => game.id === args.id),
+    game: (_, args) => games.find((game) => game.id === args.id),
     authors: () => authors,
-    author: (parent, args, context) => authors.find((author) => author.id === args.id),
+    author: (_, args) => authors.find((author) => author.id === args.id),
     reviews: () => reviews,
-    review: (parent, args, context) => reviews.find((review) => review.id === args.id)
+    review: (_, args) => reviews.find((review) => review.id === args.id)
+  },
+  Game: {
+    reviews: (parent) => reviews.filter((review) => review.game_id === parent.id)
+  },
+  Author: {
+    reviews: (parent) => reviews.filter((review) => review.author_id === parent.id)
+  },
+  Review: {
+    author: (parent) => authors.find((author) => author.id === parent.id),
+    game: (parent) => games.find((game) => game.id === parent.game_id),
   },
 };
