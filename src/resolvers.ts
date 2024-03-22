@@ -21,4 +21,17 @@ export const resolvers = {
     author: (parent) => authors.find((author) => author.id === parent.id),
     game: (parent) => games.find((game) => game.id === parent.game_id),
   },
+  Mutation: {
+    addGame: (_, args) => {
+      let game = {
+        ...args.game,
+        id: Math.floor(Math.random() * 10000).toString()
+      }
+      games.push(game);
+      return game;
+    },
+    deleteGame: (_, args) => {
+      return games.filter((game) => game.id !== args.id);
+    }
+  }
 };
