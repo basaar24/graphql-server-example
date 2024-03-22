@@ -32,6 +32,16 @@ export const resolvers = {
     },
     deleteGame: (_, args) => {
       return games.filter((game) => game.id !== args.id);
+    },
+    updateGame: (_, args) => {
+      return games
+        .map((g) => {
+          if (g.id === args.id) {
+            return { ...g, ...args.edits }
+          }
+          return g;
+        })
+        .find((g) => g.id === args.id);
     }
   }
 };
